@@ -1,0 +1,92 @@
+{
+  "name": "inferency",
+  "displayName": "Inferency - AI Cost Optimizer",
+  "description": "Analyze AI API usage, track costs, and get optimization recommendations directly in your editor",
+  "version": "0.1.0",
+  "publisher": "inferency",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Huminic/inferency-cli"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Linters"
+  ],
+  "keywords": [
+    "ai",
+    "cost",
+    "optimization",
+    "openai",
+    "anthropic",
+    "llm"
+  ],
+  "activationEvents": [
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:python",
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Inferency",
+      "properties": {
+        "inferency.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Inferency API key (starts with inf_live_)"
+        },
+        "inferency.serverUrl": {
+          "type": "string",
+          "default": "https://inferency.ai",
+          "description": "Inferency server URL"
+        },
+        "inferency.enableInlineAnnotations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inline cost annotations on AI API calls"
+        },
+        "inferency.enableStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show real-time cost tracking in status bar"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "inferency.scanFile",
+        "title": "Inferency: Scan Current File"
+      },
+      {
+        "command": "inferency.scanWorkspace",
+        "title": "Inferency: Scan Workspace"
+      },
+      {
+        "command": "inferency.showDashboard",
+        "title": "Inferency: Open Dashboard"
+      },
+      {
+        "command": "inferency.setApiKey",
+        "title": "Inferency: Set API Key"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.0.0"
+  }
+}
