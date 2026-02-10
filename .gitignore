@@ -15,6 +15,7 @@ env/
 # Node / VSCode extension
 node_modules/
 extensions/vscode/dist/
+sdk-node/dist/
 *.vsix
 
 # IDE

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0 (2026-02-10)
+
+### SDK Interceptor (NEW)
+- Python interceptor: `from inferency.interceptor import init` — auto-patches OpenAI and Anthropic SDKs
+- Node.js interceptor: `@inferency/interceptor` npm package — auto-patches OpenAI and Anthropic SDKs
+- Batch transport with 100ms debounce, max 50 items per batch
+- Configurable sampling rate, privacy mode (redacts prompts), custom tags
+- Streaming support for both providers
+- Zero impact on application — all interceptor errors are silently caught
+- Install: `pip install inferency[interceptor]` (Python) or `npm install @inferency/interceptor` (Node.js)
+
 ## 0.1.0 (2026-02-09)
 
 Initial release.

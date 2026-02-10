@@ -113,6 +113,60 @@ When [tree-sitter](https://tree-sitter.github.io/tree-sitter/) is installed, det
 pip install inferency[tree-sitter]
 ```
 
+## SDK Interceptor (V2)
+
+Automatically capture every LLM API call in your application with zero code changes to your business logic.
+
+### Python
+
+```bash
+pip install inferency[interceptor]
+```
+
+```python
+from inferency.interceptor import init
+
+# Call once at app startup — patches OpenAI and Anthropic SDKs automatically
+init(api_key="inf_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+
+# All subsequent OpenAI/Anthropic calls are now tracked
+from openai import OpenAI
+client = OpenAI()
+response = client.chat.completions.create(model="gpt-4o", messages=[...])
+# ^ Automatically captured and sent to your Inferency dashboard
+```
+
+Options: `server_url`, `sample_rate` (0.0-1.0), `privacy_mode` (redacts prompts), `batch_size`, `flush_interval`.
+
+### Node.js / TypeScript
+
+```bash
+npm install @inferency/interceptor
+```
+
+```typescript
+import { init } from '@inferency/interceptor';
+
+// Call once at app startup
+init({ apiKey: 'inf_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' });
+
+// All subsequent OpenAI/Anthropic SDK calls are tracked
+import OpenAI from 'openai';
+const client = new OpenAI();
+const response = await client.chat.completions.create({ model: 'gpt-4o', messages: [...] });
+// ^ Automatically captured
+```
+
+Options: `serverUrl`, `sampleRate`, `privacyMode`, `batchSize`, `flushInterval`.
+
+### How It Works
+
+The interceptor monkey-patches SDK methods (`client.chat.completions.create`, `client.messages.create`) to record:
+- Model, provider, token counts, latency, status code
+- Optional: customer ID, project ID, custom tags
+
+Data is batched (50 items or 100ms, whichever comes first) and sent to your Inferency dashboard. The interceptor never modifies LLM responses and all errors are silently caught — your application is never affected.
+
 ## VS Code / Cursor Extension
 
 > **Status:** Preview — works with the Inferency server, available in this repo under `extensions/vscode/`.
